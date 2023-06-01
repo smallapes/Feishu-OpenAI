@@ -54,7 +54,7 @@ func (m MessageHandler) msgReceivedHandler(ctx context.Context, event *larkim.P2
 		return nil
 	}
 	fmt.Println("thisthis")
-	// fmt.Printf("message: %v\n", event.Event.Message)
+	fmt.Printf("message: %v\n", event.Event.Message)
 
 	msgType, err := judgeMsgType(event)
 	if err != nil {
