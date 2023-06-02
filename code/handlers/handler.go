@@ -53,8 +53,6 @@ func (m MessageHandler) msgReceivedHandler(ctx context.Context, event *larkim.P2
 		fmt.Println("unknown chat type")
 		return nil
 	}
-	fmt.Println("thisthis")
-	fmt.Printf("message: %v\n", event.Event.Message)
 
 	msgType, err := judgeMsgType(event)
 	if err != nil {
@@ -67,7 +65,11 @@ func (m MessageHandler) msgReceivedHandler(ctx context.Context, event *larkim.P2
 	rootId := event.Event.Message.RootId
 	chatId := event.Event.Message.ChatId
 	mention := event.Event.Message.Mentions
-
+	senderId := event.Event.Sender.SenderId.UserId
+	
+	fmt.Printf("发送者：%v\n", *senderId)
+	fmt.Printf("消息: %v\n", *content)
+	
 	sessionId := rootId
 	if sessionId == nil || *sessionId == "" {
 		sessionId = msgId
@@ -83,6 +85,7 @@ func (m MessageHandler) msgReceivedHandler(ctx context.Context, event *larkim.P2
 		sessionId:   sessionId,
 		mention:     mention,
 	}
+	fmt.Println(msgInfo)
 	data := &ActionInfo{
 		ctx:     &ctx,
 		handler: &m,
